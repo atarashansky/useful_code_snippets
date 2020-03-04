@@ -25,6 +25,7 @@ print(DF)
 print(res1)
 print(res2)
 ```
+Function:
 ```python
 import numpy as np
 def df_to_dict(DF,key_key=None,val_key=[]):
@@ -73,7 +74,7 @@ Example:
 #given a sparse matrix X
 res = pca_with_sparse(X,50)
 ```
-
+Function:
 ```python
 import numpy as np
 from scipy import sparse
