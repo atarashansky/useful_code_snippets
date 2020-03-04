@@ -1,7 +1,7 @@
 # Useful code snippets
 A collection of useful code snippets with usage examples. This will grow over time as I add various bits of code.
 
-[Converting a Pandas DataFrame to a dictionary](##Converting-a-Pandas-DataFrame-to-a-dictionary4)
+[Converting a Pandas DataFrame to a dictionary](##converting-a-pandas-dataframe-to-a-dictionary4)
 
 ## Converting a Pandas DataFrame to a dictionary
 This is much faster than the built in `to_dict` function in Pandas DataFrame. Also, Pandas DataFrames do not handle cases where the same key may appear multiple times with different values. In my implementation, all values that are associated with a particular key are concatenated into an array.
