@@ -1,7 +1,7 @@
 # Useful code snippets
 A collection of useful code snippets with usage examples. This will grow over time as I add various bits of code.
 
-[Converting a Pandas DataFrame to a dictionary](##Converting-a-Pandas-DataFrame-to-a-dictionary)
+[Converting a Pandas DataFrame to a dictionary](## Converting-a-Pandas-DataFrame-to-a-dictionary)
 
 
 
