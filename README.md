@@ -65,7 +65,7 @@ This makes use of the `LinearOperator` class to create customized dot products t
 Parameters:
   - `X` -- Input data (scipy.sparse.csr_matrix or scipy.sparse.csc_matrix)
   - `npcs` -- Number of principal components to use
-  - `solver` -- For now, can be either `arpack` or `lobpcg`.
+  - `solver` -- For now, can be either `'arpack'` or `'lobpcg'`.
   - `mu` -- If you've precomputed the feature means of `X`, you can pass them in here.
   - `random_state` -- The random seed that can be set for reproducibility (integer or `numpy.random.RandomState`)
     
