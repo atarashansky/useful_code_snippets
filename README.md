@@ -2,6 +2,7 @@
 A collection of useful code snippets with usage examples. This will grow over time as I add various bits of code.
 
 [Converting a Pandas DataFrame to a dictionary](#converting-a-pandas-dataframe-to-a-dictionary)
+
 [Running PCA on scipy sparse matrices](#running-pca-on-scipy-sparse-matrices)
 
 ## Converting a Pandas DataFrame to a dictionary
