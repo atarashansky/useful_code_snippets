@@ -8,9 +8,9 @@ A collection of useful code snippets with usage examples. This will grow over ti
 This is much faster than the built in `to_dict` function in Pandas DataFrame. Also, Pandas DataFrames do not handle cases where the same key may appear multiple times with different values. In my implementation, all values that are associated with a particular key are concatenated into an array.
 
 Parameters:
-  `DF` is the input DataFrame.
-  `key_key` is the column ID that will be the dictionary key. If `None`, the dictionary key values will be the index of `DF`
-  `val_key` is a list of column IDs that will be the dictionary values. If it is an empty list, all columns will be used.
+  - `DF` is the input DataFrame.
+  - `key_key` is the column ID that will be the dictionary key. If `None`, the dictionary key values will be the index of `DF`
+  - `val_key` is a list of column IDs that will be the dictionary values. If it is an empty list, all columns will be used.
 
 Example:
 ```python
@@ -62,12 +62,12 @@ def df_to_dict(DF,key_key=None,val_key=[]):
 
 This makes use of the `LinearOperator` class to create customized dot products that can be utilized by scipy sparse matrices. This allows us to incorporate implicit mean centering into the sparse SVD algorithms provided by `scipy.sparse.linalg.svds`.
 
-Paramters:
-  `X` -- Input data (scipy.sparse.csr_matrix or scipy.sparse.csc_matrix)
-  `npcs` -- Number of principal components to use
-  `solver` -- For now, can be either `arpack` or `lobpcg`.
-  `mu` -- If you've precomputed the feature means of `X`, you can pass them in here.
-  `random_state` -- The random seed that can be set for reproducibility (integer or `numpy.random.RandomState`)
+Parameters:
+  - `X` -- Input data (scipy.sparse.csr_matrix or scipy.sparse.csc_matrix)
+  - `npcs` -- Number of principal components to use
+  - `solver` -- For now, can be either `arpack` or `lobpcg`.
+  - `mu` -- If you've precomputed the feature means of `X`, you can pass them in here.
+  - `random_state` -- The random seed that can be set for reproducibility (integer or `numpy.random.RandomState`)
     
 Example:
 ```python
