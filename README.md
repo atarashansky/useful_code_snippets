@@ -4,7 +4,7 @@ A collection of useful code snippets with usage examples. This will grow over ti
 - [Converting a Pandas DataFrame to a dictionary -- 03/04/2020](#converting-a-pandas-dataframe-to-a-dictionary)
 - [Running PCA on scipy sparse matrices -- 03/04/2020](#running-pca-on-scipy-sparse-matrices)
 - [Converting a scipy sparse adjacency matrix to a k-nearest neighbor graph -- 03/05/2020](#converting-a-scipy-sparse-adjacency-matrix-to-a-k-nearest-neighbor-graph)
-- [Splitting and modifying arrays of strings](#splitting-and-modifying-arrays-of-strings)
+- [Splitting and modifying arrays of strings -- 03/05/2020](#splitting-and-modifying-arrays-of-strings)
 
 ## Converting a Pandas DataFrame to a dictionary
 This is much faster than the built in `to_dict` function in Pandas DataFrame. Also, Pandas DataFrames do not handle cases where the same key may appear multiple times with different values. In my implementation, all values that are associated with a particular key are concatenated into an array.
