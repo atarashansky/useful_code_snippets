@@ -4,6 +4,7 @@ A collection of useful code snippets with usage examples. This will grow over ti
 - [Converting a Pandas DataFrame to a dictionary -- 03/04/2020](#converting-a-pandas-dataframe-to-a-dictionary)
 - [Running PCA on scipy sparse matrices -- 03/04/2020](#running-pca-on-scipy-sparse-matrices)
 - [Converting a scipy sparse adjacency matrix to a k-nearest neighbor graph -- 03/05/2020](#converting-a-scipy-sparse-adjacency-matrix-to-a-k-nearest-neighbor-graph)
+- [Splitting and modifying arrays of strings](#splitting-and-modifying-arrays-of-strings)
 
 ## Converting a Pandas DataFrame to a dictionary
 This is much faster than the built in `to_dict` function in Pandas DataFrame. Also, Pandas DataFrames do not handle cases where the same key may appear multiple times with different values. In my implementation, all values that are associated with a particular key are concatenated into an array.
@@ -195,4 +196,56 @@ def sparse_knn_ks(D,ks):
             D1.data[np.arange(ind[i],ind[i+1])[idx]]=0
     D1.eliminate_zeros()
     return D1
+```
+
+## Splitting and modifying arrays of strings
+Given a vector of strings, we want to be able extract a specific portion of each string. I use this function a lot.
+
+
+Parameters/Examples:
+- `substr(['A_foo','A_hello','B_world'],s='_',ix = 0)` splits each string by `_` and return the first substring (`ix=0`), yielding `array(['A','A','B'])`. 
+- `substr(['A_foo','A_hello','B_world'],s='_',ix = 1)` returns `array(['foo','hello','world'])`.
+- `substr(['A_foo','A_hello','B_world_x'],s='_')` returns a list of all possible splits: `[array(['A','A','B']),array(['foo','hello','world']),array(['','','x'])]`
+- If `obj=True`, the numpy array returned will have `object` data type. Otherwise, the array will have unicode string data type. The `object` data type is extremely useful if you want to concatenate a string to an array of strings or two arrays of strings together in an element-wise fashion: 
+```
+a = ['A_1','B_2','C_3']
+b = ['1_foo','2_hello','3_world']
+c = substr(a,s='_',ix=0,obj=True)+'_'+substr(b,s='_',ix=1,obj=True)
+print(c)
+```
+would print `array(['A_foo','B_hello','C_world'])`. Combined with the `substr` function, you can now easily strip unwanted string headers and add new information in a vectorized fashion.
+
+Function:
+```python
+import numpy
+def substr(x, s="_", ix=None,obj=False):
+    m = []    
+    if ix is not None:
+        for i in range(len(x)):
+            f = x[i].split(s)
+            ix = min(len(f) - 1, ix)
+            m.append(f[ix])
+        return np.array(m).astype('object') if obj else np.array(m)
+    else:
+        ms = []
+        ls = []
+        for i in range(len(x)):
+            f = x[i].split(s)
+            m = []
+            for ix in range(len(f)):
+                m.append(f[ix])
+            ms.append(m)
+            ls.append(len(m))
+        ml = max(ls)
+        for i in range(len(ms)):
+            ms[i].extend([""] * (ml - len(ms[i])))
+            if ml - len(ms[i]) > 0:
+                ms[i] = np.concatenate(ms[i])
+        ms = np.vstack(ms)
+        if obj:
+            ms=ms.astype('object')
+        MS = []
+        for i in range(ms.shape[1]):
+            MS.append(ms[:, i])
+        return MS
 ```
