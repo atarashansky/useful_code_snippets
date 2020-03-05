@@ -206,14 +206,16 @@ Parameters/Examples:
 - `substr(['A_foo','A_hello','B_world'],s='_',ix = 0)` splits each string by `_` and returns the first substring (`ix=0`), yielding `array(['A','A','B'])`. 
 - `substr(['A_foo','A_hello','B_world'],s='_',ix = 1)` returns `array(['foo','hello','world'])`.
 - `substr(['A_foo','A_hello','B_world_x'],s='_')` returns a list of all possible splits: `[array(['A','A','B']),array(['foo','hello','world']),array(['','','x'])]`
-- If `obj=True`, the numpy array returned will have `object` data type. Otherwise, the array will have unicode string data type. The `object` data type is extremely useful if you want to concatenate a string to an array of strings or two arrays of strings together in an element-wise fashion: 
+- If `obj=True`, the numpy array returned will have `'object'` data type. Otherwise, the array will have unicode string data type. The `'object'` data type is extremely useful if you want to concatenate a string to an array of strings or two arrays of strings together in an element-wise fashion: 
 ```
 a = ['A_1','B_2','C_3']
 b = ['1_foo','2_hello','3_world']
 c = substr(a,s='_',ix=0,obj=True)+'_'+substr(b,s='_',ix=1,obj=True)
 print(c)
 ```
-would print `array(['A_foo','B_hello','C_world'])`. Combined with the `substr` function, you can now easily strip unwanted string headers and add new information in a vectorized fashion.
+would print `['A_foo','B_hello','C_world']`. Note that the `'object'` dtype is unwieldy for large vectors, so make sure to transform it back to unicode datatype. An easy way of doing this is by casting to a list and then a numpy array: `c=np.array(list(c))`. 
+
+Combined with the `substr` function, you can now easily strip unwanted string headers and add new information in a vectorized fashion.
 
 Function:
 ```python
