@@ -1,5 +1,5 @@
 # Useful code snippets
-A collection of useful code snippets with usage examples. This will grow over time as I add various bits of code.
+An eclectic collection of useful code snippets with usage examples. This will grow over time as I add various bits of useful code I've written over the years. As it grows, I'll probably sort each snippet into categories.
 
 - [Converting a Pandas DataFrame to a dictionary -- 03/04/2020](#converting-a-pandas-dataframe-to-a-dictionary)
 - [Running PCA on scipy sparse matrices -- 03/04/2020](#running-pca-on-scipy-sparse-matrices)
