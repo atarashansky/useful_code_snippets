@@ -215,7 +215,7 @@ print(c)
 ```
 would print `['A_foo','B_hello','C_world']`. Note that the `'object'` dtype is unwieldy for large vectors, so make sure to transform it back to unicode datatype. An easy way of doing this is by casting to a list and then a numpy array: `c=np.array(list(c))`. 
 
-Combined with the `substr` function, you can now easily strip unwanted string headers and add new information in a vectorized fashion.
+Using the `substr` function, you can now easily strip unwanted string headers and add new information in a vectorized fashion.
 
 Function:
 ```python
