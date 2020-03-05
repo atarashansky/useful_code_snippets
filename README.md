@@ -3,6 +3,7 @@ A collection of useful code snippets with usage examples. This will grow over ti
 
 - [Converting a Pandas DataFrame to a dictionary -- 03/04/2020](#converting-a-pandas-dataframe-to-a-dictionary)
 - [Running PCA on scipy sparse matrices -- 03/04/2020](#running-pca-on-scipy-sparse-matrices)
+- [Converting a scipy sparse matrix to a k-nearest neighbor matrix](#converting-a-scipy-sparse-matrix-to-a-k-nearest-neighbor-matrix)
 
 ## Converting a Pandas DataFrame to a dictionary
 This is much faster than the built in `to_dict` function in Pandas DataFrame. Also, Pandas DataFrames do not handle cases where the same key may appear multiple times with different values. In my implementation, all values that are associated with a particular key are concatenated into an array.
@@ -138,4 +139,60 @@ def pca_with_sparse(X, npcs, solver='arpack', mu=None, random_state=None):
         'components': v,
     }
     return output
+```
+## Converting a scipy sparse adjacency matrix to a k-nearest neighbor matrix
+Given a large, `scipy.sparse` adjacency matrix (representing a graph), we want to convert it to a k-nearest neighbor graph without needing to densify the data. I also provide a function (`sparse_knn_ks`) to convert the graph to a k-nearest neighbor graph with variable k.
+
+Parameters:
+- `D` -- your `scipy.sparse` adjacency matrix
+- `k` -- the number of nearest neighbors to keep
+Example:
+```
+#given a sparse adjacency matrix D, find 15 nearest neighbors
+knnm = sparse_knn(D,15)
+
+#given a sparse adjacency matrix D and a vector of #nearest neighbors ks, find k_i nearest neighbors for each sample i
+#ks = [15,14,20,...,25,30,10]
+knnm2 = sparse_knn_ks(D,ks)
+```
+Functions:
+```python
+import numpy as np
+def sparse_knn(D,k):
+    D1=D.tocoo()
+    idr = np.argsort(D1.row)
+    D1.row[:]=D1.row[idr]
+    D1.col[:]=D1.col[idr]
+    D1.data[:]=D1.data[idr]
+
+    _,ind = np.unique(D1.row,return_index=True)
+    ind = np.append(ind,D1.data.size)
+    for i in range(ind.size-1):
+        idx = np.argsort(D1.data[ind[i]:ind[i+1]])
+        if idx.size > k:
+            idx = idx[:-k]
+            D1.data[np.arange(ind[i],ind[i+1])[idx]]=0
+    D1.eliminate_zeros()
+    return D1
+
+def sparse_knn_ks(D,ks):
+    D1=D.tocoo()
+    idr = np.argsort(D1.row)
+    D1.row[:]=D1.row[idr]
+    D1.col[:]=D1.col[idr]
+    D1.data[:]=D1.data[idr]
+
+    row,ind = np.unique(D1.row,return_index=True)
+    ind = np.append(ind,D1.data.size)
+    for i in range(ind.size-1):
+        idx = np.argsort(D1.data[ind[i]:ind[i+1]])
+        k = ks[row[i]]
+        if idx.size > k:
+            if k != 0:
+                idx = idx[:-k]
+            else:
+                idx = idx
+            D1.data[np.arange(ind[i],ind[i+1])[idx]]=0
+    D1.eliminate_zeros()
+    return D1
 ```
