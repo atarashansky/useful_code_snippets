@@ -3,7 +3,7 @@ A collection of useful code snippets with usage examples. This will grow over ti
 
 - [Converting a Pandas DataFrame to a dictionary -- 03/04/2020](#converting-a-pandas-dataframe-to-a-dictionary)
 - [Running PCA on scipy sparse matrices -- 03/04/2020](#running-pca-on-scipy-sparse-matrices)
-- [Converting a scipy sparse matrix to a k-nearest neighbor matrix](#converting-a-scipy-sparse-matrix-to-a-k-nearest-neighbor-matrix)
+- [Converting a scipy sparse adjacency matrix to a k-nearest neighbor graph](#converting-a-scipy-sparse-adjacency-matrix-to-a-k-nearest-neighbor-graph)
 
 ## Converting a Pandas DataFrame to a dictionary
 This is much faster than the built in `to_dict` function in Pandas DataFrame. Also, Pandas DataFrames do not handle cases where the same key may appear multiple times with different values. In my implementation, all values that are associated with a particular key are concatenated into an array.
@@ -140,7 +140,7 @@ def pca_with_sparse(X, npcs, solver='arpack', mu=None, random_state=None):
     }
     return output
 ```
-## Converting a scipy sparse adjacency matrix to a k-nearest neighbor matrix
+## Converting a scipy sparse adjacency matrix to a k-nearest neighbor graph
 Given a large, `scipy.sparse` adjacency matrix (representing a graph), we want to convert it to a k-nearest neighbor graph without needing to densify the data. I also provide a function (`sparse_knn_ks`) to convert the graph to a k-nearest neighbor graph with variable k.
 
 Parameters:
