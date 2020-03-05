@@ -203,7 +203,7 @@ Given a vector of strings, we want to be able extract a specific portion of each
 
 
 Parameters/Examples:
-- `substr(['A_foo','A_hello','B_world'],s='_',ix = 0)` splits each string by `_` and return the first substring (`ix=0`), yielding `array(['A','A','B'])`. 
+- `substr(['A_foo','A_hello','B_world'],s='_',ix = 0)` splits each string by `_` and returns the first substring (`ix=0`), yielding `array(['A','A','B'])`. 
 - `substr(['A_foo','A_hello','B_world'],s='_',ix = 1)` returns `array(['foo','hello','world'])`.
 - `substr(['A_foo','A_hello','B_world_x'],s='_')` returns a list of all possible splits: `[array(['A','A','B']),array(['foo','hello','world']),array(['','','x'])]`
 - If `obj=True`, the numpy array returned will have `object` data type. Otherwise, the array will have unicode string data type. The `object` data type is extremely useful if you want to concatenate a string to an array of strings or two arrays of strings together in an element-wise fashion: 
